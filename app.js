@@ -6,6 +6,7 @@ mongoose
   .connect(process.env.MONGO_ATLAS, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    dbName: "main"
   })
   .then(() => {
     console.log("Successfully connected to mongo.");
@@ -17,7 +18,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.status(200).send("<b>Welcome to InducedApis</b>");
 });
-app.use("/api", require("./api/routes/users.js"));
+app.use("/auth", require("./api/routes/users.js"));
 app.use("/adding", require("./api/routes/adding.js"));
 const PORT = 3002;
 app.listen(PORT, () => {
