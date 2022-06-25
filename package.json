@@ -11,6 +11,7 @@
   "author": "Ishan Singla",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "ddos": "^0.2.1",
     "dotenv": "^16.0.1",

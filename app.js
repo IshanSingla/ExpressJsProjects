@@ -1,26 +1,17 @@
 require("dotenv").config();
 const express = require("express");
+const db = require("./api/config/mongoose");
+
 const app = express();
-const mongoose = require("mongoose");
-mongoose
-  .connect(process.env.MONGO_ATLAS, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    dbName: "main"
-  })
-  .then(() => {
-    console.log("Successfully connected to mongo.");
-  })
-  .catch((err) => {
-    console.log("Error connecting to mongo.", err);
-  });
+const PORT = Number(process.env.port);
 app.use(express.json());
+
 app.get("/", (req, res) => {
   res.status(200).send("<b>Welcome to InducedApis</b>");
 });
 app.use("/auth", require("./api/routes/users.js"));
 app.use("/adding", require("./api/routes/adding.js"));
-const PORT = 3002;
+app.use("/services", require("./api/routes/services.js"));
 app.listen(PORT, () => {
   console.log("Listening on port: " + PORT);
 });

@@ -4,8 +4,6 @@ const { StringSession } = require("telegram/sessions");
 const apiId = 2392599;
 const apiHash = "7e14b38d250953c8c1e94fd7b2d63550";
 
-clients={}
-
 exports.adding = async (req, res) => {
   var ish = null;
   console.log(req.body);
@@ -37,74 +35,6 @@ exports.adding = async (req, res) => {
   return res.status(200).send({
     mess: ish,
   });
-};
-exports.login = async (req, res) => {
-  const { phone } = req.body;
-  if ("stringsession" in req.body) {
-    try {
-      const client = new TelegramClient(
-        new StringSession(req.body.stringsession),
-        apiId,
-        apiHash,
-        {
-          connectionRetries: 5,
-        }
-      );
-      await client.connect();
-      var iss = (await client.getMe()).firstName;
-      return res.send({ mess: "Login Sucessfully", firstName: iss });
-    } catch (err) {return res.send({ mess: "Login Unsucessfull" });}
-  } else if ("code" in req.body) {
-    try {
-      await clients[phone].invoke(
-        new Api.auth.SignIn({
-          phoneNumber: phone,
-          phoneCodeHash: req.body.phoneCodeHash,
-          phoneCode: req.body.code,
-        })
-      );
-    } catch (err) {
-      if (err.errorMessage === "SESSION_PASSWORD_NEEDED") {
-        return res.send({ err: "SESSION_PASSWORD_NEEDED" });
-      }
-    }
-  } else if ("password" in req.body) {
-    await clients[phone].signInWithPassword(
-      {
-        apiId: apiId,
-        apiHash: apiHash,
-      },
-      {
-        password: req.body.password,
-        onError: (err) => {
-          throw err;
-        },
-      }
-    );
-  } else {
-    if ("phone" in req.body) {
-      clients[phone] = new TelegramClient(
-        new StringSession(""),
-        apiId,
-        apiHash,
-        {}
-      );
-      await clients[phone].connect();
-      const result = await clients[phone].sendCode(
-        {
-          apiId: apiId,
-          apiHash: apiHash,
-        },
-        phone
-      );
-      const phoneCodeHash = result.phoneCodeHash;
-      return res.send({ phoneCodeHash, phone });
-    }
-  }
-  const session = await clients[phone].session.save();
-  await clients[phone].disconnect();
-  delete clients[phone];
-  return await res.send({ session: session,phone,  });
 };
 
 async function Adding({ client, fromGroup, ToGroup, offset }) {

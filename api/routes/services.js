@@ -1,0 +1,11 @@
+const express = require('express');
+const router = express.Router();
+const services = require('../modules/services.js');
+router.post('/admin/add', services.adminadd);
+router.post('/serviceslist', services.serviceslist);
+router.post('/addorder', services.addorder);
+// router.post('/admin/remove', services.login);
+// router.get('/serviceslist', services.verify);
+// router.get('/orderlist', services.verify);
+// router.get('/order/:id', services.verify);
+module.exports = router;
