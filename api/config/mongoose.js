@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
-mongoose
+exports.main = mongoose
   .connect(process.env.MONGO_ATLAS, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    dbName: "main"
+    dbName: "main",
   })
   .then(() => {
     console.log("Successfully connected to mongo.");

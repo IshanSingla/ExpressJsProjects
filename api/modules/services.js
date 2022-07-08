@@ -1,9 +1,9 @@
 const axios = require("axios");
 const mongoose = require("mongoose");
 
-const services = require("../Schema/services.js");
-const orders = require("../Schema/orders.js");
-const User = require("../Schema/user.js");
+const services = require("../Schema/Smm/services.js");
+const orders = require("../Schema/Smm/orders.js");
+const User = require("../Schema/main/user.js");
 
 exports.adminadd = async (req, res) => {
   const { link, key } = req.body;

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
-const User = require("../Schema/user.js");
+const User = require("../Schema/main/user.js");
 const transporter = nodemailer.createTransport({
   service: "Gmail",
   auth: {

@@ -3,7 +3,7 @@ const express = require("express");
 const db = require("./api/config/mongoose");
 
 const app = express();
-const PORT = Number(process.env.port);
+const PORT = Number(21);
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -12,6 +12,7 @@ app.get("/", (req, res) => {
 app.use("/auth", require("./api/routes/users.js"));
 app.use("/adding", require("./api/routes/adding.js"));
 app.use("/services", require("./api/routes/services.js"));
+app.use("/sub4sub", require("./api/routes/sub4sub"));
 app.listen(PORT, () => {
   console.log("Listening on port: " + PORT);
 });
